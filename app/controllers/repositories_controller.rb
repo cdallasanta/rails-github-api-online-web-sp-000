@@ -21,7 +21,7 @@ class RepositoriesController < ApplicationController
   def create
     binding.pry
     resp = Faraday.post("https://api.github.com/user/repos") do |req|
-      req.params["name"] = params[:name]
+      req.body = { 'name': params[:name] }.to_json
       req.headers = {
         Authorization: "token #{session[:token]}",
         Accept: 'application/json'
